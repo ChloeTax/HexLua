@@ -23,7 +23,7 @@ table.insert(SpecialHandlers,{300,function(startDir, anglesigs, castEnv) --intro
             if castEnv.introDepth == 0 then
                 castEnv.introIotas = Hexcasting.Iotas.hexcasting.list:new()
             else
-                castEnv.stack:push(Hexcasting.Iotas.hexcasting.pattern:new(startDir, anglesigs))
+                castEnv.introIotas:append(Hexcasting.Iotas.hexcasting.pattern:new(startDir, anglesigs))
             end
             castEnv.introDepth = castEnv.introDepth + 1
         end
@@ -41,7 +41,7 @@ table.insert(SpecialHandlers,{300,function(startDir, anglesigs, castEnv) --retro
                 castEnv.stack:push(castEnv.introIotas)
                 castEnv.introIotas = Hexcasting.Iotas.hexcasting.list:new()
             else
-                castEnv.stack:push(Hexcasting.Iotas.hexcasting.pattern:new(startDir, anglesigs))
+                castEnv.introIotas:append(Hexcasting.Iotas.hexcasting.pattern:new(startDir, anglesigs))
             end
         end
         pattern.name = "Retrospection"
