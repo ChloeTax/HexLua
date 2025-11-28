@@ -6,7 +6,7 @@ Hexcasting.Iotas = platform.require("hexEmulator/hexiotas")
 Hexcasting.SpecialHandlers = platform.require("hexEmulator/hexSpecialHandlers")
 
 function Hexcasting.buildCast(hex, caster)
-    cast = Hexcasting.Iotas.internal.cast:new(
+    local cast = Hexcasting.Iotas.internal.cast:new(
         caster, --caster
         Hexcasting.Iotas.internal.stack:new(), --continuation
         Hexcasting.Iotas.internal.world:new(), --world

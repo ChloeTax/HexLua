@@ -336,10 +336,10 @@ Iotas.FrameForEach = {
         
         if self.Data:length() > 0 then
             castEnv.stack:push(table.remove(self.Data.list, 1))
-            cast.continuations:push(Hexcasting.Iotas.hexcasting.FrameEvaluate:new(self.Hex:copy()))
+            castEnv.continuations:push(Hexcasting.Iotas.hexcasting.FrameEvaluate:new(self.Hex:copy()))
         else
             castEnv.stack:push(self.outputs)
-            cast.continuations:pop()
+            castEnv.continuations:pop()
         end
     end,
     copy = function(self)
