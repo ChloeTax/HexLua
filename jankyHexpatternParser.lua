@@ -63,7 +63,7 @@ local function specialHandler(line)
       if number == math.floor(number) then
         pattern = gen_num(number)
       else
-        pattern = gen_num(math.floor(number * 1024)) .. "aaaaaaaaaa"
+        pattern = gen_num(math.floor(number * 1024)) .. "dddddddddd"
       end
         return Hexcasting.Iotas.hexcasting.pattern:new("SOUTH_EAST",pattern)
     --   else
