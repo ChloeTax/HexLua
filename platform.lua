@@ -2,13 +2,15 @@ local requireCache = {}
 
 table.unpack = table.unpack or unpack
 
+math.randomseed(os.time())
+
 return {
     platform = "Lua",
     print = print,
     random = math.random,
     require = function(path, ...)
         local file = requireCache[path]
-        if file then print("cache hit!") return file end
+        if file then return file end
         
         file =  loadfile(path .. ".lua")
         requireCache[path] = file
