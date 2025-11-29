@@ -70,7 +70,7 @@ end})
 ---@return table | nil
 table.insert(SpecialHandlers,{100,function(startDir, anglesigs, castEnv)
 
-    if startsWith(anglesigs,"aqaa") then
+    if startsWith(anglesigs,"aqaa") or startsWith(anglesigs,"dedd") then
 
         local pattern = {direction = startDir, is_per_world = "False", id = "hexcasting:number"}
 
@@ -86,6 +86,7 @@ table.insert(SpecialHandlers,{100,function(startDir, anglesigs, castEnv)
             end
         end
 
+        if startsWith(anglesigs,"dedd") then x = x * -1 end
 
         pattern.name = "Numerical Reflection: " .. x
 

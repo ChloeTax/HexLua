@@ -1,10 +1,11 @@
 local function roundNumberString(number)
-    local s = tostring(math.floor(number*100))
+    local s = tostring(math.floor(math.abs(number)*100))
     s = string.rep("0", 3 - #s)..s
     local leading = string.sub(s,1,#s-2)
     local trailing = string.sub(s,#s-1)
 
     if leading == "" then leading = "0" end
+    if number < 0 then leading = "-" .. leading end
     return table.concat({leading,".",trailing})
 end
 
