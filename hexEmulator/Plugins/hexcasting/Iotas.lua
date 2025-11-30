@@ -21,6 +21,7 @@ Iotas.null = {
     end,
     equals = function(self,other)
         if self.Type ~= other.Type then return false end
+        return true
     end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.null:new()
@@ -40,9 +41,10 @@ Iotas.garbage = {
     end,
     equals = function(self,other)
         if self.Type ~= other.Type then return false end
+        return true
     end,
     copy = function(self)
-        return Hexcasting.Iotas["hexcasting:garbage"]:new()
+        return Hexcasting.Iotas.hexcasting.garbage:new()
     end,
     display = function(self) return "Garbage" end,
     serialize = function(self) error("Unimplemented") end,
@@ -62,14 +64,18 @@ Iotas.vec3 = {
     end,
     add = function(self, other)
         if other.Type == "hexcasting:double" then
-            return Hexcasting.Iotas["hexcasting:vec3"]:new(self.x + other.number, self.y + other.number, self.z + other.number)
+            return Hexcasting.Iotas.hexcasting.vec3:new(self.x + other.number, self.y + other.number, self.z + other.number)
         elseif other.Type == "hexcasting:vec3" then
-            return Hexcasting.Iotas["hexcasting:vec3"]:new(self.x + other.x, self.y + other.y, self.z + other.z)
+            return Hexcasting.Iotas.hexcasting.vec3:new(self.x + other.x, self.y + other.y, self.z + other.z)
+        else
+            error(table.concat({"cannot add ", self.Type, " to ", other.Type}))
         end
     end,
     multiply = function(self, other)
         if other.Type == "hexcasting:double" then
-            return Hexcasting.Iotas["hexcasting:vec3"]:new(self.x * other.number, self.y * other.number, self.z * other.number)
+            return Hexcasting.Iotas.hexcasting.vec3:new(self.x * other.number, self.y * other.number, self.z * other.number)
+        else
+            error(table.concat({"cannot multiply ", self.Type, " by ", other.Type}))
         end
     end,
     equals = function(self,other)
@@ -77,7 +83,7 @@ Iotas.vec3 = {
         return self.x == other.x and self.y == other.y and self.z == other.z
     end,
     copy = function(self)
-        return Hexcasting.Iotas["hexcasting:vec3"]:new(self.x, self.y, self.z)
+        return Hexcasting.Iotas.hexcasting.vec3:new(self.x, self.y, self.z)
     end,
     display = function(self)
         return table.concat({"(",roundNumberString(self.x),", ",roundNumberString(self.y),", ",roundNumberString(self.z),")"})
@@ -100,7 +106,7 @@ Iotas.bool  = {
         return self.bool == other.bool
     end,
     copy = function(self)
-        return Hexcasting.Iotas["hexcasting:bool"]:new(self.bool)
+        return Hexcasting.Iotas.hexcasting.bool:new(self.bool)
     end,
     display = function(self) if self.bool then return "True" else return "False" end end,
     serialize = function(self) error("Unimplemented") end,
@@ -128,19 +134,19 @@ Iotas.double = {
     end,
     add = function(self,other)
         if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-        return Hexcasting.Iotas["hexcasting:double"]:new(self.number + other.number)
+        return Hexcasting.Iotas.hexcasting.double:new(self.number + other.number)
     end,
     subtract = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-        return Hexcasting.Iotas["hexcasting:double"]:new(self.number - other.number)
+        if self.Type ~= other.Type then error(table.concat({"cannot subtract ", self.Type, " from ", other.Type})) end
+        return Hexcasting.Iotas.hexcasting.double:new(self.number - other.number)
     end,
     multiply = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-        return Hexcasting.Iotas["hexcasting:double"]:new(self.number * other.number)
+        if self.Type ~= other.Type then error(table.concat({"cannot multiply ", self.Type, " and ", other.Type})) end
+        return Hexcasting.Iotas.hexcasting.double:new(self.number * other.number)
     end,
     divide = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-        return Hexcasting.Iotas["hexcasting:double"]:new(self.number / other.number)
+        if self.Type ~= other.Type then error(table.concat({"cannot divide ", self.Type, " and ", other.Type})) end
+        return Hexcasting.Iotas.hexcasting.double:new(self.number / other.number)
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -168,26 +174,26 @@ Iotas.entity = {
         end
     end,
     copy = function(self)
-        return Hexcasting.Iotas["hexcasting:entity"]:new(self.entity)
+        return Hexcasting.Iotas.hexcasting.entity:new(self.entity)
     end,
     display = function(self) 
         return self:getName()
     end,
     -- add = function(self,other)
     --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas["hexcasting:double"]:new(self.number + other.number)
+    --     return Hexcasting.Iotas.hexcasting.double:new(self.number + other.number)
     -- end,
     -- subtract = function(self,other)
     --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas["hexcasting:double"]:new(self.number - other.number)
+    --     return Hexcasting.Iotas.hexcasting.double:new(self.number - other.number)
     -- end,
     -- multiply = function(self,other)
     --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas["hexcasting:double"]:new(self.number * other.number)
+    --     return Hexcasting.Iotas.hexcasting.double:new(self.number * other.number)
     -- end,
     -- divide = function(self,other)
     --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas["hexcasting:double"]:new(self.number / other.number)
+    --     return Hexcasting.Iotas.hexcasting.double:new(self.number / other.number)
     -- end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -207,23 +213,39 @@ Iotas.pattern = {
         error("Unimplemented")
     end,
     eval = function(self, castEnv)
+        local found = false
+
         local specialHandler = Hexcasting.SpecialHandlers(self.Direction, self.Angles, castEnv)
         if specialHandler then
             specialHandler:action(castEnv)
-        elseif Hexcasting.Actions[self.Angles] then
-            Hexcasting.Actions[self.Angles]:action(castEnv)
-        else
-            error(self:display())
+            found = true
+        elseif Hexcasting.Overloads[self.Angles] then
+            for _, overload in pairs(Hexcasting.Overloads[self.Angles]) do
+                found = true
+                local stack = castEnv.stack.list
+                for i, iota in pairs({table.unpack(stack, #stack - #overload[1] + 1, #stack)}) do
+                    if iota.Type ~= overload[1][i] then found = false end
+                end
+                if found then overload[2](self, castEnv) break end
+            end
+        end
+        if not found then
+            if Hexcasting.Actions[self.Angles] then
+                Hexcasting.Actions[self.Angles]:action(castEnv)
+            else
+                error(self:display())
+            end
         end
     end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.pattern:new(self.Direction, self.Angles)
     end,
     display = function(self)
-        if Hexcasting.Actions[self.Angles] then
+        local specialHandler = Hexcasting.SpecialHandlers(self.Direction, self.Angles, castEnv)
+        if specialHandler then
+            return specialHandler.name
+        elseif Hexcasting.Actions[self.Angles] then
             return Hexcasting.Actions[self.Angles].name
-        elseif Hexcasting.SpecialHandlers(self.Direction, self.Angles, nil) then
-            return Hexcasting.SpecialHandlers(self.Direction, self.Angles, nil).name
         else
             return "Unknown Pattern: (" .. self.Direction .. " " .. self.Angles .. ")"
         end

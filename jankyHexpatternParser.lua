@@ -56,7 +56,7 @@ local function specialHandler(line)
     if line == "{" then return Hexcasting.Iotas.hexcasting.pattern:new("WEST", "qqq") end
     if line == "}" then return Hexcasting.Iotas.hexcasting.pattern:new("EAST", "eee") end
     if startsWith(line,"Bookkeeper's Gambit: ") then return poptable[startsWithout(line, "Bookkeeper's Gambit: ")] end
-    if startsWith(line,"String: ") then return Hexcasting.Iotas["moreiotas:string"]:new(startsWithout(line, "String: ")) end
+    if startsWith(line,"String: ") then return Hexcasting.Iotas.moreiotas.string:new(startsWithout(line, "String: "):sub(2, -2)) end
     if startsWith(line,"Numerical Reflection: ") then
       local number = tonumber(hexUtils.stringSplit(line, "Numerical Reflection: ")[1])
       local pattern

@@ -28,7 +28,7 @@ Iotas.stack = {
         return newIota
     end,
     display = function(self)
-        local output = {"["}
+        local output = {"{"}
         for _,iota in pairs(self.list) do
             table.insert(output,iota:display())
             table.insert(output,", ")
@@ -36,12 +36,8 @@ Iotas.stack = {
         if #output > 1 then
             table.remove(output)
         end
-        table.insert(output,"]")
+        table.insert(output,"}")
         return table.concat(output)
-        -- error("The stack should not be possible to display?")
-    end,
-    equals = function(self)
-        return false
     end,
     length = function(self)
         return #self.list
@@ -64,10 +60,7 @@ Iotas.block = {
         return Hexcasting.Iotas.block:new(self.blockType, self.blockData:copy())
     end,
     display = function(self)
-        error("The world should not be possible to display?")
-    end,
-    equals = function(self)
-        return false
+        error("Unimplemented")
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -90,10 +83,7 @@ Iotas.nbt = {
         return Hexcasting.Iotas.nbt:new(newData)
     end,
     display = function(self)
-        error("nbt should not be possible to display?")
-    end,
-    equals = function(self)
-        return false
+        error("Unimplemented")
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -114,10 +104,7 @@ Iotas.world = {
         error("Unimplemented")
     end,
     display = function(self)
-        error("The world should not be possible to display?")
-    end,
-    equals = function(self)
-        return false
+        error("Unimplemented")
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -143,19 +130,13 @@ Iotas.cast = {
         error("Unimplemented")
     end,
     display = function(self)
-        error("The cast should not be possible to display")
-    end,
-    equals = function(self)
-        return false
+        error("Unimplemented")
     end,
     eval = function(self)
-        while not self:finished() do
+        while self.continuations:length() ~= 0 do
             continuation = self.continuations:peek()
             continuation:eval(self)
         end
-    end,
-    finished = function(self)
-        return self.continuations:length() == 0
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,

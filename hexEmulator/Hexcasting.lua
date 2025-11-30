@@ -4,6 +4,7 @@ Hexcasting = {}
 Hexcasting.Actions = platform.require("hexEmulator/hexactions")
 Hexcasting.Iotas = platform.require("hexEmulator/hexiotas")
 Hexcasting.SpecialHandlers = platform.require("hexEmulator/hexSpecialHandlers")
+Hexcasting.Overloads = platform.require("hexEmulator/hexoverloads")
 
 function Hexcasting.buildCast(hex, caster)
     local cast = Hexcasting.Iotas.internal.cast:new(

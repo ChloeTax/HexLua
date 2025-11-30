@@ -38,6 +38,7 @@ return {
     Plugins = {
         "custom",
         "hexcasting",
+        "moreiotas",
         "internal"
     }
 }
