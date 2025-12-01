@@ -19,10 +19,6 @@ Iotas.null = {
         self.__index = self
         return setmetatable(data,self)
     end,
-    equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return true
-    end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.null:new()
     end,
@@ -38,10 +34,6 @@ Iotas.garbage = {
         }
         self.__index = self
         return setmetatable(data,self)
-    end,
-    equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return true
     end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.garbage:new()
@@ -78,10 +70,6 @@ Iotas.vec3 = {
             error(table.concat({"cannot multiply ", self.Type, " by ", other.Type}))
         end
     end,
-    equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return self.x == other.x and self.y == other.y and self.z == other.z
-    end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.vec3:new(self.x, self.y, self.z)
     end,
@@ -101,10 +89,6 @@ Iotas.bool  = {
         self.__index = self
         return setmetatable(data,self)
     end,
-    equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return self.bool == other.bool
-    end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.bool:new(self.bool)
     end,
@@ -115,6 +99,7 @@ Iotas.bool  = {
 
 Iotas.double = {
     new = function(self, number)
+        if type(number) ~= "number" then error("invalid number") end
         data = {
             Type = "hexcasting:double",
             number = number,
@@ -123,30 +108,24 @@ Iotas.double = {
         return setmetatable(data,self)
     end,
     equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return self.number == other.number
+        if self.Type ~= other.Type then return false
+        elseif self.number == other.number then return true
+        else return false end
     end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.double:new(self.number)
     end,
+    length = function(self)
+        return math.abs(self.number)
+    end,
+    ceil = function (self)
+        return math.ceil(self.number)
+    end,
+    floor = function (self)
+        return math.floor(self.number)
+    end,
     display = function(self) 
         return roundNumberString(self.number)
-    end,
-    add = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-        return Hexcasting.Iotas.hexcasting.double:new(self.number + other.number)
-    end,
-    subtract = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot subtract ", self.Type, " from ", other.Type})) end
-        return Hexcasting.Iotas.hexcasting.double:new(self.number - other.number)
-    end,
-    multiply = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot multiply ", self.Type, " and ", other.Type})) end
-        return Hexcasting.Iotas.hexcasting.double:new(self.number * other.number)
-    end,
-    divide = function(self,other)
-        if self.Type ~= other.Type then error(table.concat({"cannot divide ", self.Type, " and ", other.Type})) end
-        return Hexcasting.Iotas.hexcasting.double:new(self.number / other.number)
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -161,40 +140,12 @@ Iotas.entity = {
         self.__index = self
         return setmetatable(data,self)
     end,
-    equals = function(self,other)
-        if self.Type ~= other.Type then return false end
-        return self.entity == other.entity
-    end,
-    getName = function(self)
-        local name = self.entity:get_luaentity()
-        if name then
-            return name.name
-        else
-            return self.entity:get_player_name()
-        end
-    end,
     copy = function(self)
         return Hexcasting.Iotas.hexcasting.entity:new(self.entity)
     end,
     display = function(self) 
         return self:getName()
     end,
-    -- add = function(self,other)
-    --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas.hexcasting.double:new(self.number + other.number)
-    -- end,
-    -- subtract = function(self,other)
-    --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas.hexcasting.double:new(self.number - other.number)
-    -- end,
-    -- multiply = function(self,other)
-    --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas.hexcasting.double:new(self.number * other.number)
-    -- end,
-    -- divide = function(self,other)
-    --     if self.Type ~= other.Type then error(table.concat({"cannot add ", self.Type, " to ", other.Type})) end
-    --     return Hexcasting.Iotas.hexcasting.double:new(self.number / other.number)
-    -- end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
 }
@@ -208,9 +159,6 @@ Iotas.pattern = {
         }
         self.__index = self
         return setmetatable(data,self)
-    end,
-    equals = function(self, other)
-        error("Unimplemented")
     end,
     eval = function(self, castEnv)
         local found = false
@@ -264,10 +212,6 @@ Iotas.list = {
         self.__index = self
         return setmetatable(data,self)
     end,
-    add = function(self, iota)
-        table.insert(self.list, iota)
-        return self
-    end,
     append = function(self, iota)
         table.insert(self.list, iota)
         return self
@@ -302,9 +246,6 @@ Iotas.list = {
         self.list = rev
         return self
     end,
-    equals = function(self, other)
-        error("Unimplemented")
-    end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
 }
@@ -331,9 +272,6 @@ Iotas.FrameEvaluate = {
     end,
     display = function(self)
         return "[JUMP]"
-    end,
-    equals = function(self, other)
-        error("Unimplemented")
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,
@@ -370,9 +308,6 @@ Iotas.FrameForEach = {
     end,
     display = function(self)
         return "[JUMP]"
-    end,
-    equals = function(self, other)
-        error("Unimplemented")
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,

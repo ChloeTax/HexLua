@@ -35,6 +35,14 @@ return {
             return content
         end
     },
+    readChat = function ()
+        local message = io.read("*l")
+        if message then
+            return message
+        else
+            return ""
+        end
+    end,
     Plugins = {
         "custom",
         "hexcasting",

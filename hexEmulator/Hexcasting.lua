@@ -11,11 +11,7 @@ function Hexcasting.buildCast(hex, caster)
         caster, --caster
         Hexcasting.Iotas.internal.stack:new(), --continuation
         Hexcasting.Iotas.internal.world:new(), --world
-        Hexcasting.Iotas.internal.stack:new(), --stack
-        Hexcasting.Iotas.hexcasting.null:new(), --ravenmind
-        Hexcasting.Iotas.hexcasting.list:new(), --introiotas
-        0, --introdepth
-        false --considering
+        Hexcasting.Iotas.internal.stack:new() --stack
     )
     cast.continuations:push(Hexcasting.Iotas.hexcasting.FrameEvaluate:new(hex))
     return cast

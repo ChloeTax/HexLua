@@ -14,10 +14,11 @@ local iotaRequirements = {
 }
 
 local iotaDefaults = {
+    reverse = function (self) error(self.Type .. " does not support reverse") end,
     ceil = function (self) error(self.Type .. " does not support ceil") end,
     floor = function (self) error(self.Type .. " does not support floor") end,
     length = function (self) error(self.Type .. " does not support length") end,
-    eval = function (self, castEnv) if castEnv.introDepth > 0 then castEnv.introIotas:append(self) else error(self.Type .. " does not support evaluation") end end,
+    eval = function (self, castEnv) if castEnv.data.hexcasting.introDepth.number > 0 then castEnv.data.hexcasting.introIotas:append(self) else error(self.Type .. " does not support evaluation") end end,
 }
 
 for addon,iotas_ in pairs(Iotas) do

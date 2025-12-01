@@ -111,17 +111,14 @@ Iotas.world = {
 }
 
 Iotas.cast = {
-    new = function(self, caster, continuations, world, stack, ravenmind, introIotas, introDepth, considering)
+    new = function(self, caster, continuations, world, stack)
         data = {
             Type = "internal:cast",
             caster = caster, 
             continuations = continuations, 
             world = world, 
             stack = stack, 
-            ravenmind = ravenmind, 
-            introIotas = introIotas, 
-            introDepth = introDepth, 
-            considering = considering,
+            data = {}
         }
         self.__index = self
         return setmetatable(data,self)
