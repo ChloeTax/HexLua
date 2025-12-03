@@ -10,15 +10,18 @@ Iotas.stack = {
         self.__index = self
         return setmetatable(data,self)
     end,
-    push = function(self, iota)
-        table.insert(self.list, iota)
+    push = function(self, iota, distance)
+        if not distance then distance = 0 end
+        table.insert(self.list,#self.list-distance+1, iota)
         return self
     end,
-    pop = function(self)
-        return table.remove(self.list, #self.list)
+    pop = function(self, distance)
+        if not distance then distance = 0 end
+        return table.remove(self.list, #self.list - distance)
     end,
-    peek = function(self)
-        return self.list[#self.list]
+    peek = function(self, distance)
+        if not distance then distance = 0 end
+        return self.list[#self.list - distance]
     end,
     copy = function(self)
         local newIota = Hexcasting.Iotas.internal.stack:new()

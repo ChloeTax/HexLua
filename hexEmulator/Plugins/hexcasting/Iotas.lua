@@ -239,7 +239,7 @@ Iotas.list = {
         return table.concat(output)
     end,
     reverse = function(self)
-        rev = {}
+        local rev = {}
         for i=#self.list, 1, -1 do
             rev[#rev+1] = self.list[i]
         end

@@ -65,7 +65,9 @@ Actions["waqa"] = {direction = "EAST", name = "Whisper Reflection", is_per_world
     )
 end}
 Actions["dwewdweq"] = {direction = "WEST", name = "Write", is_per_world = "False", id = "moreiotas:string/block/set", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qa"] = {direction = "EAST", name = "Comma Reflection", is_per_world = "False", id = "moreiotas:string/comma", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qa"] = {direction = "EAST", name = "Comma Reflection", is_per_world = "False", id = "moreiotas:string/comma", action = function(self, castEnv)
+        castEnv.stack:push(Hexcasting.Iotas.moreiotas.string:new(","))
+end}
 Actions["awdwaaww"] = {direction = "SOUTH_EAST", name = "Spacing Reflection", is_per_world = "False", id = "moreiotas:string/space", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["awdwa"] = {direction = "SOUTH_EAST", name = "Blank Reflection", is_per_world = "False", id = "moreiotas:string/empty", action = function(self, castEnv)
     castEnv.stack:push(Hexcasting.Iotas.moreiotas.string:new(""))
@@ -73,7 +75,9 @@ end}
 Actions["awwaeawwawawddw"] = {direction = "SOUTH_WEST", name = "Rotation Distillation", is_per_world = "False", id = "moreiotas:matrix/rotation", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qwaqa"] = {direction = "SOUTH_EAST", name = "Sifter's Gambit", is_per_world = "False", id = "moreiotas:string/chat/prefix/set", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["awqwawqe"] = {direction = "EAST", name = "Reader's Purification", is_per_world = "False", id = "moreiotas:string/block/get", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["wawqwawaw"] = {direction = "EAST", name = "Scrivener's Purification", is_per_world = "False", id = "moreiotas:string/iota", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["wawqwawaw"] = {direction = "EAST", name = "Scrivener's Purification", is_per_world = "False", id = "moreiotas:string/iota", action = function(self, castEnv)
+    castEnv.stack:push(Hexcasting.Iotas.moreiotas.string:new(castEnv.stack:pop():display()))
+end}
 Actions["deqqeddqwqqqwq"] = {direction = "SOUTH_EAST", name = "Moniker Purification", is_per_world = "False", id = "moreiotas:string/name/get", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["wdwewdwdw"] = {direction = "NORTH_WEST", name = "Patternmaster's Purification", is_per_world = "False", id = "moreiotas:string/action", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dwwdwwdwdd"] = {direction = "WEST", name = "Case Distillation", is_per_world = "False", id = "moreiotas:string/case", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
