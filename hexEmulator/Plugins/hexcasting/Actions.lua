@@ -227,7 +227,7 @@ Actions["aw"] = {direction = "NORTH_EAST", name = "Augur's Purification", is_per
 Actions["eeeeewaqaawd"] = {direction = "NORTH_EAST", name = "Zone Distillation: Non-Living", is_per_world = "False", id = "hexcasting:zone_entity/not_living", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqdaqaawq"] = {direction = "SOUTH_EAST", name = "Entity Purification: Monster", is_per_world = "False", id = "hexcasting:get_entity/monster", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dedq"] = {direction = "NORTH_EAST", name = "False Reflection", is_per_world = "False", id = "hexcasting:const/false", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["de"] = {direction = "NORTH_EAST", name = "Reveal", is_per_world = "False", id = "hexcasting:print", action = function(self, castEnv) platform.print(castEnv.stack:peek():display()) end}
+Actions["de"] = {direction = "NORTH_EAST", name = "Reveal", is_per_world = "False", id = "hexcasting:print", action = function(self, castEnv) platform.print(castEnv.stack:peek():display(), castEnv.caster.entity) end}
 Actions["aaqawawa"] = {direction = "SOUTH_EAST", name = "Ignite", is_per_world = "False", id = "hexcasting:ignite", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qeewdweddw"] = {direction = "NORTH_EAST", name = "Muninn's Reflection", is_per_world = "False", id = "hexcasting:read/local", action = function(self, castEnv)
     castEnv.stack:push(castEnv.data.hexcasting.ravenmind:copy())
