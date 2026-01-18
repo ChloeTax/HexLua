@@ -1,6 +1,8 @@
 local function roundNumberString(number)
     local s = tostring(math.floor(math.abs(number)*100))
-    s = string.rep("0", 3 - #s)..s
+    if 3 - #s > 0 then
+        s = string.rep("0", 3 - #s)..s
+    end
     local leading = string.sub(s,1,#s-2)
     local trailing = string.sub(s,#s-1)
 
