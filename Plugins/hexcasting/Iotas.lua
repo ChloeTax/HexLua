@@ -146,7 +146,7 @@ Iotas.entity = {
         return Hexcasting.Iotas.hexcasting.entity:new(self.entity)
     end,
     display = function(self) 
-        return self:getName()
+        return platform.entity.get_name(self.entity)
     end,
     serialize = function(self) error("Unimplemented") end,
     deserialize = function(self, data) error("Unimplemented") end,

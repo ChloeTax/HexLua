@@ -23,17 +23,25 @@ Actions["qwaeawqaeaqa"] = {direction = "NORTH_WEST", name = "Flock's Reflection"
         ))
 end}
 Actions["awqqqwaq"] = {direction = "SOUTH_WEST", name = "Blink", is_per_world = "False", id = "hexcasting:blink", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqqqqea"] = {direction = "NORTH_WEST", name = "Vector Reflection +X", is_per_world = "False", id = "hexcasting:const/vec/px", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qqqqqea"] = {direction = "NORTH_WEST", name = "Vector Reflection +X", is_per_world = "False", id = "hexcasting:const/vec/px", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(1,0,0)) end}
 Actions["deeeeeq"] = {direction = "EAST", name = "Assessor's Reflection", is_per_world = "False", id = "hexcasting:writable", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["q"] = {direction = "SOUTH_WEST", name = "Minimus Distillation", is_per_world = "False", id = "hexcasting:less", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["weddwaa"] = {direction = "EAST", name = "Architect's Distillation", is_per_world = "False", id = "hexcasting:raycast/axis", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["weddwaa"] = {direction = "EAST", name = "Architect's Distillation", is_per_world = "False", id = "hexcasting:raycast/axis", action = function(self, castEnv) 
+    local dir = castEnv.stack:pop()
+    local origin = castEnv.stack:pop()
+
+    local hit = platform.raycast(origin, origin:add(dir:multiply(Hexcasting.Iotas.hexcasting.double:new(32))), "block_normal")
+
+    castEnv.stack:push(hit)
+
+end}
 Actions["aadaa"] = {direction = "EAST", name = "Gemini Decomposition", is_per_world = "False", id = "hexcasting:duplicate", action = function(self, castEnv)
     castEnv.stack:push(
         castEnv.stack:peek():copy()
     )
 end}
 Actions["dwdwdeweaqa"] = {direction = "NORTH_EAST", name = "Aviator's Purification", is_per_world = "False", id = "hexcasting:flight/can_fly", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqqqq"] = {direction = "NORTH_WEST", name = "Vector Reflection Zero", is_per_world = "False", id = "hexcasting:const/vec/0", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qqqqq"] = {direction = "NORTH_WEST", name = "Vector Reflection Zero", is_per_world = "False", id = "hexcasting:const/vec/0", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(0,0,0)) end}
 Actions["dw"] = {direction = "NORTH_WEST", name = "Negation Purification", is_per_world = "False", id = "hexcasting:not", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dwa"] = {direction = "NORTH_WEST", name = "Exclusion Distillation", is_per_world = "False", id = "hexcasting:xor", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["wqaeaqw"] = {direction = "NORTH_WEST", name = "Surgeon's Exaltation", is_per_world = "False", id = "hexcasting:replace", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
@@ -45,7 +53,12 @@ Actions["eeeeewaqaawa"] = {direction = "NORTH_EAST", name = "Zone Distillation: 
 Actions["qqqqqaewawawe"] = {direction = "SOUTH_WEST", name = "Black Sun's Nadir", is_per_world = "False", id = "hexcasting:potion/wither", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqawwawawd"] = {direction = "WEST", name = "Blue Sun's Nadir", is_per_world = "False", id = "hexcasting:potion/levitation", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqadwawaw"] = {direction = "SOUTH_EAST", name = "Green Sun's Nadir", is_per_world = "False", id = "hexcasting:potion/slowness", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqqqqwded"] = {direction = "SOUTH_EAST", name = "Zone Distillation: Any", is_per_world = "False", id = "hexcasting:zone_entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qqqqqwded"] = {direction = "SOUTH_EAST", name = "Zone Distillation: Any", is_per_world = "False", id = "hexcasting:zone_entity", action = function(self, castEnv) 
+    local radius = castEnv.stack:pop().number
+    local center = castEnv.stack:pop()
+    local entities = platform.entity.get_entities(center, radius, platform.filters.entity.any)
+    castEnv.stack:push(entities)
+end}
 Actions["wdwewewewewew"] = {direction = "EAST", name = "Chronicler's Gambit", is_per_world = "False", id = "hexcasting:write/entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["awdd"] = {direction = "SOUTH_EAST", name = "Augur's Exaltation", is_per_world = "False", id = "hexcasting:if", action = function(self, castEnv)
         local iota2 = castEnv.stack:pop()
@@ -56,9 +69,14 @@ Actions["awdd"] = {direction = "SOUTH_EAST", name = "Augur's Exaltation", is_per
             castEnv.stack:push(iota2)
         end
 end}
-Actions["eeeeeqd"] = {direction = "SOUTH_WEST", name = "Vector Reflection -Z", is_per_world = "False", id = "hexcasting:const/vec/nz", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["aa"] = {direction = "EAST", name = "Compass' Purification", is_per_world = "False", id = "hexcasting:entity_pos/eye", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqqqqed"] = {direction = "NORTH_WEST", name = "Vector Reflection +Z", is_per_world = "False", id = "hexcasting:const/vec/pz", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["eeeeeqd"] = {direction = "SOUTH_WEST", name = "Vector Reflection -Z", is_per_world = "False", id = "hexcasting:const/vec/nz", action =  function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(0,0,-1)) end}
+Actions["aa"] = {direction = "EAST", name = "Compass' Purification", is_per_world = "False", id = "hexcasting:entity_pos/eye", action = function(self, castEnv) 
+    local entity = castEnv.stack:pop()
+    local pos = platform.entity.get_pos(entity)
+    pos.y = pos.y + platform.entity.eye_height(entity).number
+    castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(pos.x,pos.y,pos.z))
+end}
+Actions["qqqqqed"] = {direction = "NORTH_WEST", name = "Vector Reflection +Z", is_per_world = "False", id = "hexcasting:const/vec/pz", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(0,0,1)) end}
 Actions["ddad"] = {direction = "WEST", name = "Fisherman's Gambit", is_per_world = "False", id = "hexcasting:fisherman", action = function(self, castEnv)
     local distance = castEnv.stack:pop().number
     if distance > 0 then
@@ -73,7 +91,11 @@ Actions["wwwqqqwwwqqeqqwwwqqwqqdqqqqqdqq"] = {direction = "EAST", name = "Greate
 Actions["qaq"] = {direction = "NORTH_EAST", name = "Mind's Reflection", is_per_world = "False", id = "hexcasting:get_caster", action = function(self, castEnv)
     castEnv.stack:push(castEnv.caster)
 end}
-Actions["wa"] = {direction = "EAST", name = "Alidade's Purification", is_per_world = "False", id = "hexcasting:get_entity_look", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["wa"] = {direction = "EAST", name = "Alidade's Purification", is_per_world = "False", id = "hexcasting:get_entity_look", action = function(self, castEnv) 
+    local entity = castEnv.stack:pop()
+    local pos = platform.entity.get_look_dir(entity)
+    castEnv.stack:push(pos)
+end}
 Actions["eee"] = {direction = "EAST", name = "Retrospection", is_per_world = "False", id = "hexcasting:close_paren", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dadad"] = {direction = "NORTH_EAST", name = "Thoth's Gambit", is_per_world = "False", id = "hexcasting:for_each", action = function(self, castEnv)
         castEnv.continuations:push(
@@ -84,12 +106,26 @@ Actions["dadad"] = {direction = "NORTH_EAST", name = "Thoth's Gambit", is_per_wo
             )
         )
 end}
-Actions["qqa"] = {direction = "NORTH_EAST", name = "Conjure Block", is_per_world = "False", id = "hexcasting:conjure_block", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqd"] = {direction = "NORTH_EAST", name = "Conjure Light", is_per_world = "False", id = "hexcasting:conjure_light", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["wqaawdd"] = {direction = "EAST", name = "Archer's Distillation", is_per_world = "False", id = "hexcasting:raycast", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qqa"] = {direction = "NORTH_EAST", name = "Conjure Block", is_per_world = "False", id = "hexcasting:conjure_block", action = function(self, castEnv) 
+    local pos = castEnv.stack:pop()
+    platform.set_block(castEnv.caster,pos,platform.blocktypes.conjured_block)
+
+end}
+Actions["qqd"] = {direction = "NORTH_EAST", name = "Conjure Light", is_per_world = "False", id = "hexcasting:conjure_light", action = function(self, castEnv) 
+    local pos = castEnv.stack:pop()
+    platform.set_block(castEnv.caster,pos,platform.blocktypes.conjured_light)
+end}
+Actions["wqaawdd"] = {direction = "EAST", name = "Archer's Distillation", is_per_world = "False", id = "hexcasting:raycast", action = function(self, castEnv) 
+    local dir = castEnv.stack:pop()
+    local origin = castEnv.stack:pop()
+
+    local hit = platform.raycast(origin, origin:add(dir:multiply(Hexcasting.Iotas.hexcasting.double:new(32))), "block")
+
+    castEnv.stack:push(hit)
+end}
 Actions["da"] = {direction = "EAST", name = "Inequality Distillation", is_per_world = "False", id = "hexcasting:not_equals", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqdaqaawe"] = {direction = "SOUTH_EAST", name = "Entity Purification: Player", is_per_world = "False", id = "hexcasting:get_entity/player", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["eeeeeqw"] = {direction = "SOUTH_WEST", name = "Vector Reflection -Y", is_per_world = "False", id = "hexcasting:const/vec/ny", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["eeeeeqw"] = {direction = "SOUTH_WEST", name = "Vector Reflection -Y", is_per_world = "False", id = "hexcasting:const/vec/ny", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(0,-1,0)) end}
 Actions["deaqq"] = {direction = "SOUTH_EAST", name = "Hermes' Gambit", is_per_world = "False", id = "hexcasting:eval", action = function(self, castEnv)
         castEnv.continuations:push(
             Hexcasting.Iotas.hexcasting.FrameEvaluate:new(
@@ -99,7 +135,11 @@ Actions["deaqq"] = {direction = "SOUTH_EAST", name = "Hermes' Gambit", is_per_wo
 end}
 Actions["qqaed"] = {direction = "SOUTH_EAST", name = "Thanatos' Reflection", is_per_world = "False", id = "hexcasting:thanatos", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["awddwqawqwawq"] = {direction = "EAST", name = "Internalize Pigment", is_per_world = "False", id = "hexcasting:colorize", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["awq"] = {direction = "NORTH_EAST", name = "Stadiometer's Purification", is_per_world = "False", id = "hexcasting:get_entity_height", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["awq"] = {direction = "NORTH_EAST", name = "Stadiometer's Purification", is_per_world = "False", id = "hexcasting:get_entity_height", action = function(self, castEnv) 
+    local entity = castEnv.stack:pop()
+    local pos = platform.entity.eye_height(entity)
+    castEnv.stack:push(pos)
+end}
 Actions["e"] = {direction = "SOUTH_EAST", name = "Maximus Distillation", is_per_world = "False", id = "hexcasting:greater", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["aaedd"] = {direction = "EAST", name = "Prospector's Gambit", is_per_world = "False", id = "hexcasting:over", action = function(self, castEnv)
     castEnv.stack:push(castEnv.stack:peek(1):copy())
@@ -126,13 +166,28 @@ Actions["wqaqwawqaqw"] = {direction = "NORTH_EAST", name = "Overgrow", is_per_wo
 Actions["ddeeeee"] = {direction = "SOUTH_EAST", name = "Inverse Sine Purification", is_per_world = "False", id = "hexcasting:arcsin", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qaawdde"] = {direction = "SOUTH_EAST", name = "Swindler's Gambit", is_per_world = "False", id = "hexcasting:swizzle", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["waqqqqq"] = {direction = "EAST", name = "Craft Cypher", is_per_world = "False", id = "hexcasting:craft/cypher", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["eeeeeqa"] = {direction = "SOUTH_WEST", name = "Vector Reflection -X", is_per_world = "False", id = "hexcasting:const/vec/nx", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["eeeeeqa"] = {direction = "SOUTH_WEST", name = "Vector Reflection -X", is_per_world = "False", id = "hexcasting:const/vec/nx", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(-1,0,0)) end}
 Actions["adeeed"] = {direction = "EAST", name = "Single's Purification", is_per_world = "False", id = "hexcasting:singleton", action = function(self, castEnv)
         castEnv.stack:push(Hexcasting.Iotas.hexcasting.list:new({castEnv.stack:pop()}))
 end}
 Actions["dedwedade"] = {direction = "SOUTH_WEST", name = "Destroy Liquid", is_per_world = "False", id = "hexcasting:destroy_water", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["aqawqadaq"] = {direction = "SOUTH_EAST", name = "Create Water", is_per_world = "False", id = "hexcasting:create_water", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["eqqqqq"] = {direction = "EAST", name = "Vector Exaltation", is_per_world = "False", id = "hexcasting:construct_vec", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["aqawqadaq"] = {direction = "SOUTH_EAST", name = "Create Water", is_per_world = "False", id = "hexcasting:create_water", action = function(self, castEnv)
+    local pos = castEnv.stack:pop()
+    platform.set_block(castEnv.caster,pos,platform.blocktypes.water)
+end}
+Actions["eqqqqq"] = {direction = "EAST", name = "Vector Exaltation", is_per_world = "False", id = "hexcasting:construct_vec", action = function(self, castEnv) 
+    local number3 = castEnv.stack:pop()
+    local number2 = castEnv.stack:pop()
+    local number1 = castEnv.stack:pop()
+
+    castEnv.stack:push(
+        Hexcasting.Iotas.hexcasting.vec3:new(
+            number1.number,
+            number2.number,
+            number3.number
+        )
+    )
+end}
 Actions["ewdqdwe"] = {direction = "SOUTH_WEST", name = "Flock's Gambit", is_per_world = "False", id = "hexcasting:last_n_list", action = function(self, castEnv)
     local count = castEnv.stack:pop().number
     local output = Hexcasting.Iotas.hexcasting.list:new()
@@ -148,7 +203,14 @@ Actions["waadwawdaaweewq"] = {direction = "EAST", name = "Summon Lightning", is_
 Actions["qdwdq"] = {direction = "NORTH_EAST", name = "Arc's Reflection", is_per_world = "False", id = "hexcasting:const/double/pi", action = function(self, castEnv)
     castEnv.stack:push(Hexcasting.Iotas.hexcasting.double:new(math.pi))
 end}
-Actions["weaqa"] = {direction = "EAST", name = "Scout's Distillation", is_per_world = "False", id = "hexcasting:raycast/entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["weaqa"] = {direction = "EAST", name = "Scout's Distillation", is_per_world = "False", id = "hexcasting:raycast/entity", action = function(self, castEnv)
+    local dir = castEnv.stack:pop()
+    local origin = castEnv.stack:pop()
+
+    local hit = platform.raycast(origin, origin:add(dir:multiply(Hexcasting.Iotas.hexcasting.double:new(32))), "entity")
+
+    castEnv.stack:push(hit)
+end}
 Actions["wdedw"] = {direction = "NORTH_EAST", name = "Division Distillation", is_per_world = "False", id = "hexcasting:div", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["ddwdwwdwwd"] = {direction = "NORTH_EAST", name = "Alter Scale", is_per_world = "False", id = "hexcasting:interop/pehkui/set", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qaeaqwded"] = {direction = "NORTH_WEST", name = "Selection Exaltation", is_per_world = "False", id = "hexcasting:slice", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
@@ -222,11 +284,16 @@ Actions["dedqde"] = {direction = "EAST", name = "Locator's Distillation", is_per
 
     castEnv.stack:push(Hexcasting.Iotas.hexcasting.double:new(output))
 end}
-Actions["aawaawaa"] = {direction = "EAST", name = "Explosion", is_per_world = "False", id = "hexcasting:explode", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["aawaawaa"] = {direction = "EAST", name = "Explosion", is_per_world = "False", id = "hexcasting:explode", action = function(self, castEnv) 
+    local pow = castEnv.stack:pop()
+    local pos = castEnv.stack:pop()
+
+    platform.block.explode(castEnv.caster, pos, pow, false)
+end}
 Actions["aw"] = {direction = "NORTH_EAST", name = "Augur's Purification", is_per_world = "False", id = "hexcasting:bool_coerce", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["eeeeewaqaawd"] = {direction = "NORTH_EAST", name = "Zone Distillation: Non-Living", is_per_world = "False", id = "hexcasting:zone_entity/not_living", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqdaqaawq"] = {direction = "SOUTH_EAST", name = "Entity Purification: Monster", is_per_world = "False", id = "hexcasting:get_entity/monster", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["dedq"] = {direction = "NORTH_EAST", name = "False Reflection", is_per_world = "False", id = "hexcasting:const/false", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["dedq"] = {direction = "NORTH_EAST", name = "False Reflection", is_per_world = "False", id = "hexcasting:const/false", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.bool:new(false)) end}
 Actions["de"] = {direction = "NORTH_EAST", name = "Reveal", is_per_world = "False", id = "hexcasting:print", action = function(self, castEnv) platform.print(castEnv.stack:peek():display(), castEnv.caster.entity) end}
 Actions["aaqawawa"] = {direction = "SOUTH_EAST", name = "Ignite", is_per_world = "False", id = "hexcasting:ignite", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qeewdweddw"] = {direction = "NORTH_EAST", name = "Muninn's Reflection", is_per_world = "False", id = "hexcasting:read/local", action = function(self, castEnv)
@@ -247,15 +314,30 @@ Actions["wawqwqwqwqwqwew"] = {direction = "EAST", name = "Auditor's Purification
 Actions["qqqqqwdeddwd"] = {direction = "SOUTH_EAST", name = "Zone Distillation: Living", is_per_world = "False", id = "hexcasting:zone_entity/living", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqdaqa"] = {direction = "SOUTH_EAST", name = "Entity Purification", is_per_world = "False", id = "hexcasting:get_entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dwdwdewq"] = {direction = "NORTH_EAST", name = "Wayfarer's Flight", is_per_world = "False", id = "hexcasting:flight/time", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qqqqqew"] = {direction = "NORTH_WEST", name = "Vector Reflection +Y", is_per_world = "False", id = "hexcasting:const/vec/py", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["ddwddwdd"] = {direction = "EAST", name = "Fireball", is_per_world = "False", id = "hexcasting:explode/fire", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["dd"] = {direction = "NORTH_EAST", name = "Compass' Purification II", is_per_world = "False", id = "hexcasting:entity_pos/foot", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qqqqqew"] = {direction = "NORTH_WEST", name = "Vector Reflection +Y", is_per_world = "False", id = "hexcasting:const/vec/py", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.vec3:new(0,1,0)) end}
+Actions["ddwddwdd"] = {direction = "EAST", name = "Fireball", is_per_world = "False", id = "hexcasting:explode/fire", action = function(self, castEnv) 
+    local pow = castEnv.stack:pop()
+    local pos = castEnv.stack:pop()
+
+    platform.block.explode(castEnv.caster, pos, pow, true)
+end}
+Actions["dd"] = {direction = "NORTH_EAST", name = "Compass' Purification II", is_per_world = "False", id = "hexcasting:entity_pos/foot", action = function(self, castEnv) 
+    local entity = castEnv.stack:pop()
+    local pos = platform.entity.get_pos(entity)
+    castEnv.stack:push(pos)
+end}
 Actions["aaqwqaa"] = {direction = "SOUTH_WEST", name = "Speaker's Decomposition", is_per_world = "False", id = "hexcasting:deconstruct", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["waqaw"] = {direction = "SOUTH_EAST", name = "Multiplicative Distillation", is_per_world = "False", id = "hexcasting:mul", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["wq"] = {direction = "EAST", name = "Pace Purification", is_per_world = "False", id = "hexcasting:get_entity_velocity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["wq"] = {direction = "EAST", name = "Pace Purification", is_per_world = "False", id = "hexcasting:get_entity_velocity", action = function(self, castEnv)
+    local entity = castEnv.stack:pop()
+    local pos = platform.entity.get_velocity(entity)
+    castEnv.stack:push(pos)
+end}
 Actions["qqqqqad"] = {direction = "SOUTH_EAST", name = "Cosine Purification", is_per_world = "False", id = "hexcasting:cos", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["wqqqqqadq"] = {direction = "SOUTH_WEST", name = "Tangent Purification", is_per_world = "False", id = "hexcasting:tan", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["qaqqqqq"] = {direction = "EAST", name = "Break Block", is_per_world = "False", id = "hexcasting:break_block", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qaqqqqq"] = {direction = "EAST", name = "Break Block", is_per_world = "False", id = "hexcasting:break_block", action = function(self, castEnv) 
+    platform.block.break_block(castEnv.stack:pop(),castEnv.caster.entity)
+end}
 Actions["ad"] = {direction = "EAST", name = "Equality Distillation", is_per_world = "False", id = "hexcasting:equals", action = function(self, castEnv)
     local output = Hexcasting.Iotas.hexcasting.bool:new(
         castEnv.stack:pop():equals(castEnv.stack:pop()
@@ -292,7 +374,13 @@ Actions["aaeaa"] = {direction = "EAST", name = "Rotation Gambit", is_per_world =
     castEnv.stack:push(iota1)
     castEnv.stack:push(iota3)
 end}
-Actions["qeeeee"] = {direction = "EAST", name = "Vector Disintegration", is_per_world = "False", id = "hexcasting:deconstruct_vec", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["qeeeee"] = {direction = "EAST", name = "Vector Disintegration", is_per_world = "False", id = "hexcasting:deconstruct_vec", action = function(self, castEnv) 
+    local vector = castEnv.stack:pop()
+
+    castEnv.stack:push(Hexcasting.Iotas.hexcasting.double:new(vector.x))
+    castEnv.stack:push(Hexcasting.Iotas.hexcasting.double:new(vector.y))
+    castEnv.stack:push(Hexcasting.Iotas.hexcasting.double:new(vector.z))
+end}
 Actions["eaqwqaewede"] = {direction = "SOUTH_WEST", name = "Lodestone Reflection", is_per_world = "False", id = "hexcasting:circle/impetus_dir", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["aawdd"] = {direction = "EAST", name = "Jester's Gambit", is_per_world = "False", id = "hexcasting:swap", action = function(self, castEnv)
     local iota1 = castEnv.stack:pop()
@@ -300,7 +388,7 @@ Actions["aawdd"] = {direction = "EAST", name = "Jester's Gambit", is_per_world =
     castEnv.stack:push(iota1)
     castEnv.stack:push(iota2)
 end}
-Actions["aqae"] = {direction = "SOUTH_EAST", name = "True Reflection", is_per_world = "False", id = "hexcasting:const/true", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["aqae"] = {direction = "SOUTH_EAST", name = "True Reflection", is_per_world = "False", id = "hexcasting:const/true", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.bool:new(true)) end}
 Actions["wawqwqwqwqwqw"] = {direction = "EAST", name = "Chronicler's Purification", is_per_world = "False", id = "hexcasting:read/entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["eeewwweeewwaqqddqdqd"] = {direction = "EAST", name = "Dispel Rain", is_per_world = "True", id = "hexcasting:dispel_rain", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["eawwaeawawaa"] = {direction = "NORTH_WEST", name = "Altiora", is_per_world = "True", id = "hexcasting:flight", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
@@ -318,7 +406,11 @@ Actions["ewq"] = {direction = "EAST", name = "Floor Purification", is_per_world 
 end}
 Actions["qqqqaawawaedd"] = {direction = "NORTH_WEST", name = "White Sun's Zenith", is_per_world = "True", id = "hexcasting:potion/regeneration", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["aada"] = {direction = "EAST", name = "Fisherman's Gambit II", is_per_world = "False", id = "hexcasting:fisherman/copy", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
-Actions["awqqqwaqw"] = {direction = "SOUTH_WEST", name = "Impulse", is_per_world = "False", id = "hexcasting:add_motion", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
+Actions["awqqqwaqw"] = {direction = "SOUTH_WEST", name = "Impulse", is_per_world = "False", id = "hexcasting:add_motion", action = function(self, castEnv) 
+    vel = castEnv.stack:pop()
+    ent = castEnv.stack:pop()
+    platform.entity:add_velocity(ent, vel)
+end}
 Actions["wdwewewewewewqw"] = {direction = "EAST", name = "Assessor's Purification", is_per_world = "False", id = "hexcasting:writable/entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqaqwawaw"] = {direction = "NORTH_WEST", name = "White Sun's Nadir", is_per_world = "False", id = "hexcasting:potion/weakness", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qwaqde"] = {direction = "NORTH_WEST", name = "Iris' Gambit", is_per_world = "False", id = "hexcasting:eval/cc", action = function(self, castEnv) hexUtils.Unimplemented(self) end}

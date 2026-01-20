@@ -27,6 +27,22 @@ table.insert(Overloads.waaw, { --add
     end
 })
 
+table.insert(Overloads.waaw, { --add
+    {"hexcasting:vec3", "hexcasting:vec3"},
+    function(self, castEnv)
+        local vector2 = castEnv.stack:pop()
+        local vector1 = castEnv.stack:pop()
+        castEnv.stack:push(
+            Hexcasting.Iotas.hexcasting.vec3:new(
+                vector1.x + vector2.x,
+                vector1.y + vector2.y,
+                vector1.z + vector2.z
+            )
+        )
+    end
+})
+
+
 Overloads.wddw = {}
 
 table.insert(Overloads.wddw, { --sub
@@ -57,6 +73,35 @@ table.insert(Overloads.waqaw, { --multiply
     end
 })
 
+table.insert(Overloads.waqaw, { --multiply
+    {"hexcasting:vec3", "hexcasting:double"},
+    function(self, castEnv)
+        local number = castEnv.stack:pop().number
+        local vector = castEnv.stack:pop()
+        castEnv.stack:push(
+            Hexcasting.Iotas.hexcasting.vec3:new(
+                vector.x * number,
+                vector.y * number,
+                vector.z * number
+            )
+        )
+    end
+})
+
+table.insert(Overloads.waqaw, { --multiply
+    {"hexcasting:double", "hexcasting:vec3"},
+    function(self, castEnv)
+        local vector = castEnv.stack:pop()
+        local number = castEnv.stack:pop().number
+        castEnv.stack:push(
+            Hexcasting.Iotas.hexcasting.vec3:new(
+                vector.x * number,
+                vector.y * number,
+                vector.z * number
+            )
+        )
+    end
+})
 
 Overloads.wdedw = {}
 

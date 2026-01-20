@@ -2,15 +2,14 @@ return {
     Unimplemented = function(self)
         error(table.concat({self.name, " (",self.id, ") is unimplemented"}),2)
     end,
-    stringSplit = function(inputstr, sep)
-        if sep == nil then
-            sep = "%s"
-        end
-        local t = {}
-        for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-            table.insert(t, str)
-        end
-        return t
+    BadArgs = function(self, count)
+        -- error(table.concat({self.name, " (",self.id, ") is unimplemented"}),2)
+    end,
+    drawMedia = function(self, castEnv, amount, simulate, automishap)
+        if automishap == nil then automishap = true end
+        if simulate == nil then simulate = false end
+        if amount == nil then error("Drawing nil media") end
+        -- platform.something
+        return 0
     end
-
 }
