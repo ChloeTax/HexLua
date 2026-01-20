@@ -108,12 +108,12 @@ Actions["dadad"] = {direction = "NORTH_EAST", name = "Thoth's Gambit", is_per_wo
 end}
 Actions["qqa"] = {direction = "NORTH_EAST", name = "Conjure Block", is_per_world = "False", id = "hexcasting:conjure_block", action = function(self, castEnv) 
     local pos = castEnv.stack:pop()
-    platform.set_block(castEnv.caster,pos,platform.blocktypes.conjured_block)
+    platform.block.set_block(castEnv.caster,pos,platform.blocktypes.conjured_block)
 
 end}
 Actions["qqd"] = {direction = "NORTH_EAST", name = "Conjure Light", is_per_world = "False", id = "hexcasting:conjure_light", action = function(self, castEnv) 
     local pos = castEnv.stack:pop()
-    platform.set_block(castEnv.caster,pos,platform.blocktypes.conjured_light)
+    platform.block.set_block(castEnv.caster,pos,platform.blocktypes.conjured_light)
 end}
 Actions["wqaawdd"] = {direction = "EAST", name = "Archer's Distillation", is_per_world = "False", id = "hexcasting:raycast", action = function(self, castEnv) 
     local dir = castEnv.stack:pop()
@@ -173,7 +173,7 @@ end}
 Actions["dedwedade"] = {direction = "SOUTH_WEST", name = "Destroy Liquid", is_per_world = "False", id = "hexcasting:destroy_water", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["aqawqadaq"] = {direction = "SOUTH_EAST", name = "Create Water", is_per_world = "False", id = "hexcasting:create_water", action = function(self, castEnv)
     local pos = castEnv.stack:pop()
-    platform.set_block(castEnv.caster,pos,platform.blocktypes.water)
+    platform.block.set_block(castEnv.caster,pos,platform.blocktypes.water)
 end}
 Actions["eqqqqq"] = {direction = "EAST", name = "Vector Exaltation", is_per_world = "False", id = "hexcasting:construct_vec", action = function(self, castEnv) 
     local number3 = castEnv.stack:pop()
@@ -409,7 +409,7 @@ Actions["aada"] = {direction = "EAST", name = "Fisherman's Gambit II", is_per_wo
 Actions["awqqqwaqw"] = {direction = "SOUTH_WEST", name = "Impulse", is_per_world = "False", id = "hexcasting:add_motion", action = function(self, castEnv) 
     vel = castEnv.stack:pop()
     ent = castEnv.stack:pop()
-    platform.entity:add_velocity(ent, vel)
+    platform.entity.add_velocity(ent, vel)
 end}
 Actions["wdwewewewewewqw"] = {direction = "EAST", name = "Assessor's Purification", is_per_world = "False", id = "hexcasting:writable/entity", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["qqqqqaqwawaw"] = {direction = "NORTH_WEST", name = "White Sun's Nadir", is_per_world = "False", id = "hexcasting:potion/weakness", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
