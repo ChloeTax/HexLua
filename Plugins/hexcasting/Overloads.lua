@@ -137,7 +137,7 @@ table.insert(Overloads.addwaad, { --modulo
 })
 
 
-Overloads.qq = {} 
+Overloads.qq = {}
 
 table.insert(Overloads.qq, { -- Minimus Distillation II
     {"hexcasting:double", "hexcasting:double"},
@@ -152,7 +152,7 @@ table.insert(Overloads.qq, { -- Minimus Distillation II
     end
 })
 
-Overloads.q = {} 
+Overloads.q = {}
 
 table.insert(Overloads.q, { -- Minimus Distillation
     {"hexcasting:double", "hexcasting:double"},
@@ -168,7 +168,7 @@ table.insert(Overloads.q, { -- Minimus Distillation
 })
 
 
-Overloads.ee = {} 
+Overloads.ee = {}
 
 table.insert(Overloads.ee, { -- Maximus Distillation II
     {"hexcasting:double", "hexcasting:double"},
@@ -183,7 +183,23 @@ table.insert(Overloads.ee, { -- Maximus Distillation II
     end
 })
 
-Overloads.waw = {} 
+
+Overloads.e = {}
+
+table.insert(Overloads.e, { -- Maximus Distillation
+    {"hexcasting:double", "hexcasting:double"},
+    function(self, castEnv)
+        local number2 = castEnv.stack:pop().number
+        local number1 = castEnv.stack:pop().number
+        castEnv.stack:push(
+            Hexcasting.Iotas.hexcasting.bool:new(
+                number1 > number2
+            )
+        )
+    end
+})
+
+Overloads.waw = {}
 
 table.insert(Overloads.waw, { -- OR
     {"hexcasting:bool", "hexcasting:bool"},
@@ -198,7 +214,7 @@ table.insert(Overloads.waw, { -- OR
     end
 })
 
-Overloads.wdw = {} 
+Overloads.wdw = {}
 
 table.insert(Overloads.wdw, { -- AND
     {"hexcasting:bool", "hexcasting:bool"},
