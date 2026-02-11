@@ -344,7 +344,7 @@ Actions["eeeeewaqaawd"] = {direction = "NORTH_EAST", name = "Zone Distillation: 
 end}
 Actions["qqqqqdaqaawq"] = {direction = "SOUTH_EAST", name = "Entity Purification: Monster", is_per_world = "False", id = "hexcasting:get_entity/monster", action = function(self, castEnv) hexUtils.Unimplemented(self) end}
 Actions["dedq"] = {direction = "NORTH_EAST", name = "False Reflection", is_per_world = "False", id = "hexcasting:const/false", action = function(self, castEnv) castEnv.stack:push(Hexcasting.Iotas.hexcasting.bool:new(false)) end}
-Actions["de"] = {direction = "NORTH_EAST", name = "Reveal", is_per_world = "False", id = "hexcasting:print", action = function(self, castEnv) platform.print(castEnv.stack:peek():display(), castEnv.caster.entity) end}
+Actions["de"] = {direction = "NORTH_EAST", name = "Reveal", is_per_world = "False", id = "hexcasting:print", action = function(self, castEnv) platform.print(castEnv.stack:peek():display(), castEnv.caster) end}
 Actions["aaqawawa"] = {direction = "SOUTH_EAST", name = "Ignite", is_per_world = "False", id = "hexcasting:ignite", action = function(self, castEnv)
     local entity = castEnv.stack:pop()
     platform.entity.ignite(entity)
