@@ -92,7 +92,6 @@ Iotas.nbt = {
     deserialize = function(self, data) error("Unimplemented") end,
 }
 
-
 Iotas.world = {
     new = function(self)
         data = {
